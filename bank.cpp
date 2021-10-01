@@ -1,78 +1,68 @@
-/*
-1. Write class which contains an integer array and a static function to find
-the average of that array and other necessary member functions. Create
-THREE objects. Read the values into the array using one object, and find
-the average. Let the second object modifies the value by multiplying each
-element by a certain multiplier. Repeat the process of finding the average
-using first object.Using the third object arrange the numbers in ascending
-order and print,
-*/
-
 #include <iostream>
+
 using namespace std;
-class avg{
-private:
-    static int a[30];
-public:
-    void get_data(int n);
-    static void aver(int n);
-    void mod(int n);
-    void sorting(int n);
+
+class bank {
+  private:
+    int ac_no, ac_type, b_amnt, dep, wit;
+  char name[20];
+  public:
+    void getdata();
+  void deposit();
+  void withdraw();
+  void display();
 
 };
-int avg::a[30];
-void avg::get_data(int n){
-    int i;
-  cout<< "\nEnter the elements\n";
-    for(i=0;i<n;i++){
-        cin>> a[i];
+
+void bank::getdata() {
+  cout << "\n Enter the Name of account  holder : ";
+  cin >> name;
+  cout << "\n Enter the Acc.Number :";
+  cin >> ac_no;
+  cout << " \nEnter the ac_type \n1.current \n2.saving  ";
+  cin >> ac_type;
+  cout << "\nEnter the Balance amount in the account :";
+  cin >> b_amnt;
+}
+
+void bank::deposit() {
+  cout << "\n Enter the amount of deposit :";
+  cin >> dep;
+  b_amnt = dep + b_amnt;
+}
+
+void bank::withdraw() {
+  cout << "\nYour Current Balance is \n" << b_amnt;
+  cout << "\nEnter the Amount \n";
+  cin >> wit;
+  if(b_amnt - wit>=250){
+     b_amnt = b_amnt - wit;
+  }else
+  cout<< "INSUFFICIENT BALANCE \n";
+
+}
+
+void bank::display() {
+  cout << "Hi " << name << endl;
+  cout << "balance = " << b_amnt << endl;
+}
+
+int main() {
+  int x=1;
+  bank b;
+  b.getdata();
+  while (x > 0) {
+    cout << "Enter \n 1.for Deposit \n 2.for Withdraw \n 0.for exit\n";
+    cin >> x;
+    switch (x) {
+    case 1:
+      b.deposit();
+      b.display();
+      break;
+    case 2:
+      b.withdraw();
+      b.display();
     }
-}
+  }
 
-void avg::aver(int n){
-   int i=0;
-    float av,sum=0;
-    for(i=0;i<n;i++)
-        sum+=a[i];
-
-     av=sum/n;
-    cout<< "\nThe Average of the Array is \n" << av <<endl;
-   }
-
-void avg::mod(int n){
- int inp,i;
-    cout<<"\nEnter the multiplier to modify the Average\n";
-    cin>> inp;
-    for(i=0;i<n;i++)
-    a[i]=a[i]*inp;
-}
-
-void avg::sorting(int n){
-    
-    int i,j,t;
-for(i=0; i<n-1; i++)
-		for(j=0; j<(n-i)-1; j++)
-		if(a[j]>a[j+1])
-		{
-			t=a[j];
-			a[j]=a[j+1];
-			a[j+1]=t;
-			}
-
-			cout << "Sorted array is " << endl;
-			for(i=0; i<n; i++)
-			cout << a[i] << endl;
-}
-
-int main(){
-avg o1,o2,o3;
-int size;
-cout<< "\nEnter the total numbers of elements\n";
-    cin>>size;
-    o1.get_data(size);
-    o1.aver(size);
-    o2.mod(size);
-    o3.sorting(size);
-    o1.aver(size);
-    return 0;
 }
